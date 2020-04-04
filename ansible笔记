@@ -1,0 +1,54 @@
+Ansible 主要的组成部分
+playbooks：任务剧本(任务集)，编排定义ansible任务集的配置文件，由ansible顺序依次执行，通常是JSON格式的YML文件
+
+inventory：ansible管理主机的清单/etc/ansible/hosts
+
+modules：ansible执行命令的功能模块，多是内置的核心模块，也可以自定义模块，ansible-doc -l 可以查看模块
+
+plugins：模块功能的补充，如连接类型插件，循环插件，变量插件，过滤插件等
+
+API：供给第三方程序调用的应用程序编程接口
+
+ansible：组合了inventory，API，modules，plugins的绿框，可以理解成ansible的命令工具，是核心执行工具
+
+注意：
+执行ansible的主机一般为主控端，中控，master或者堡垒机
+执行ansible的主机python版本需要2.6以上
+被控的server端python版本小于2.4时要安装python-simplejson
+被控端如果开启了SELinux要安装libselinux-python
+windows不能作为主控端
+
+ansible默认不在标准仓库，要用到EPEL源，可以参考https://mirrors.aliyun.com/help/centos
+
+[root@balin ~]# ansible --version
+ansible 2.9.5
+  config file = /etc/ansible/ansible.cfg
+  configured module search path = ['/root/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
+  ansible python module location = /usr/lib/python3.6/site-packages/ansible
+  executable location = /usr/bin/ansible
+  python version = 3.6.8 (default, Nov 21 2019, 19:31:34) [GCC 8.3.1 20190507 (Red Hat 8.3.1-4)]
+
+/etc/ansible/ansible.cfg 是ansible的主配置文件，用来配置ansible的工作特性
+/etc/ansible/hosts 是server主机的清单
+/etc/ansible/roles/ 存放角色的目录
+/usr/bin/ansible 是ansible的主程序，命令执行工具
+/usr/bin/ansible-doc 查看配置文档，模块功能的工具
+/usr/bin/ansible-galaxy	 下载/上传优秀代码或是Roles模块的平台
+/usr/bin/ansible-playbook 定制自动化任务，编排剧本的工具
+/usr/bin/ansible-pull	远程执行命令的工具
+/usr/bin/ansible-vault  文件加密工具
+/usr/bin/ansible-console 基于Console界面与用户交互的执行工具
+
+关于ansible的配置文件ansible.cfg
+[defaults]
+#inventory = /etc/ansible/hosts # 主机列表配置文件
+#library = /usr/share/my_modules/ # 库文件存放目录
+#remote_tmp = $HOME/.ansible/tmp #临时py命令文件存放在远程主机目录
+#local_tmp = $HOME/.ansible/tmp # 本机的临时命令执行目录
+#forks = 5 # 默认并发数
+#sudo_user = root # 默认sudo 用户
+#ask_sudo_pass = True #每次执行ansible命令是否询问ssh密码
+#ask_pass = True      #连接时提示输入ssh密码
+#remote_port = 22     #远程主机的默认端口，生产中这个端口应该会不同
+#log_path = /var/log/ansible.log #日志
+#host_key_checking = False #检查对应服务器的host_key，建议取消注释，也就是不弹出Are you sure you want to continue connecting (yes/no)?

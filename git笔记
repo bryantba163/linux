@@ -1,3 +1,12 @@
 commit，tree，blob 是git的三个对象
 commit 下只对应一个tree，tree下的blob是单个单个的代码文件
 git不管文件名，只要文件内容相同，blob只有一份(hash值相同)，所以tree下有可能嵌套tree
+git cat-file -p +hash值 查看commit tree blob
+git log 查看commit的Hash值
+git branch +参数 查看在哪个git分支下
+git status 查看在当前分支下，有没有变更要commit，有没有文件要add
+没有文件的文件夹，git不会识别
+HEAD 和 branch
+在分离头指针里HEAD是一个commit
+比较两个HEAD的不同之处 git diff HEAD HEAD~数字
+git branch -d/D 分支
